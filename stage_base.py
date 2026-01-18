@@ -90,7 +90,7 @@ class BaseStage:
 
     # レイアウト読み込み
     def LoadLayoutData(self, filename):
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf-8') as file:
             for line in file:
                 line = line.strip()
                 if line:
