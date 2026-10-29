@@ -5,7 +5,6 @@ BG_WIDTH = 2048
 class Background(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         # ゲーム中背景
         self.sprite_name = "blue_sky"

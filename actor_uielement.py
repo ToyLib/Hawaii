@@ -5,7 +5,6 @@ WHITE = (255,255,255)
 class UIElement(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         self.sprite_rainbow = "rainbow"
         self.owner_app.GetRenderer().CreateSprite(self.sprite_rainbow, "Asset/rainbow.png")
@@ -79,7 +78,7 @@ class UIElement(Actor):
 
             if self.owner_stage.GetBossFlag() == True:
                 gauge_size = 130
-                size = int(gauge_size *  self.owner_stage.GetBossLife() / self.max_life)
+                size = int(gauge_size * self.owner_stage.GetBossLife() / self.owner_stage.GetBossMaxLife())
                 if size < 0 :
                     size = 0
                 self.owner_app.GetRenderer().DrawSpriteRect(self.sprite_meter, 0, 0, size, 15, 1105+(130-size), 65)

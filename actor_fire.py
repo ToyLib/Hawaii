@@ -3,7 +3,6 @@ from actor import Actor
 class Fire(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         self.sprite_name = "fire"
         self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/bomb.png")

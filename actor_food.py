@@ -4,7 +4,6 @@ import math
 class Food(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         self.cnt = 0
         self.move_cnt = 0

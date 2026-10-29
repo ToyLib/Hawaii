@@ -32,6 +32,9 @@ MAX_LASER   = 2
 
 WHITE = (255,255,255)
 
+# True にするとデバッグ用隠しコマンド（1, 2 キー）が有効になる
+DEBUG = False
+
 # ハワイを出す座標
 DESTINATION_X = 1100
 DESTINATION_Y = 600
@@ -209,8 +212,8 @@ class HawaiiStage(BaseStage):
                     bullet.SetDisp(False)
             # レーザーを消す
             for laser in self.lasers:
-                if laser.GetActive() == True:
-                    laser.Append(False, False)
+                if laser.GetDisp() == True:
+                    laser.SetDisp(False)
 
 
         if self.harpy.GetY() > 900:
@@ -243,6 +246,8 @@ class HawaiiStage(BaseStage):
 
         self.wait_cnt += 1
         if self.wait_cnt > 300:
+            # 継続中のコンボも最大コンボに反映する
+            self.ResetCombo()
             self.Transition()
  
         self.island.Update()
@@ -374,7 +379,7 @@ class HawaiiStage(BaseStage):
                             self.life -= 6
 
                             # コンボリセット
-                            self.combo_count = 0
+                            self.ResetCombo()
 
         # トルネード
         for tornado in self.tornados:
@@ -500,7 +505,7 @@ class HawaiiStage(BaseStage):
                             self.life -= 6
 
                             # コンボリセット
-                            self.combo_count = 0
+                            self.ResetCombo()
                             enemy.Append(False, False)
 
                             # 吹き出し
@@ -514,11 +519,15 @@ class HawaiiStage(BaseStage):
                     # 通り過ぎたら消える
                     enemy.Append(False, False)
                     # コンボリセット
-                    if self.max_combo < self.combo_count:
-                        self.max_combo = self.combo_count
-                    self.combo_count = 0
+                    self.ResetCombo()
 
         pass
+
+    # 最大コンボを更新してからコンボをリセットする
+    def ResetCombo(self):
+        if self.max_combo < self.combo_count:
+            self.max_combo = self.combo_count
+        self.combo_count = 0
 
 
     def GetBullets(self):
@@ -537,6 +546,8 @@ class HawaiiStage(BaseStage):
     
     def Debug(self):
         ## デバッグ用隠しコマンド
+        if DEBUG == False:
+            return
         key = pygame.key.get_pressed()
         if key[pygame.K_2] == True:
             self.journey = self.max_journey - 100

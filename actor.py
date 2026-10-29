@@ -3,7 +3,6 @@ class Actor:
         self.owner_app = app
         self.owner_stage = stage
         self.owner_stage.AddActor(self)
-        self.Init()
         self.x = 0
         self.y = 0
         self.w = 0
@@ -13,6 +12,7 @@ class Actor:
         self.move_y = 0
         self.move_val = 0
         self.speed = 0
+        self.Init()
 
 
 

@@ -185,7 +185,6 @@ class Harpy(Actor):
 
         feather_angle = 45
         if self.behave_cnt == cnt_offset:
-            self.feathers
             for i in range(0, 8):
                 for feather in self.feathers:
                     if(feather.GetDisp() == False):

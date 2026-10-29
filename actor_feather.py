@@ -4,7 +4,6 @@ import math
 class Feather(Actor):
     def __init__(self, app, stage, parent):
         super().__init__(app, stage)
-        self.Init()
 
         self.cnt = 0
         self.move_cnt = 0

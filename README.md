@@ -40,6 +40,8 @@ python3 -m venv .venv
 
 ### デバッグ用の隠しコマンド
 
+`stage_hawaii.py` の `DEBUG` を `True` にすると有効になります（初期値は `False`）。
+
 | キー | 動作 |
 | --- | --- |
 | 1 | ライフを 1 にする |

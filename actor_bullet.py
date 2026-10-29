@@ -5,7 +5,6 @@ import math
 class Bullet(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         self.sprite_name = "bullet"
         self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/bullet.png")

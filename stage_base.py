@@ -72,6 +72,7 @@ class BaseStage:
 
         # ボスのライフ
         self.boss_life  = 100
+        self.boss_max_life = 100
         self.boss_flag  = False
 
 
@@ -142,5 +143,7 @@ class BaseStage:
         return self.max_distance
     def GetBossLife(self):
         return self.boss_life
+    def GetBossMaxLife(self):
+        return self.boss_max_life
     def GetBossFlag(self):
         return self.boss_flag

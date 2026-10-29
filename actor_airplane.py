@@ -6,7 +6,6 @@ import pygame
 class Airplane(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         self.sprite_name = "plane"
         self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/airplane.png")

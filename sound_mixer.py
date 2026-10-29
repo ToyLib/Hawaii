@@ -24,8 +24,8 @@ class SoundMixer:
         self.volume = volume
         pygame.mixer.music.set_volume(self.volume)
 
-        for sound in self.sound_effects:
-            sound.set_volume(1)#self.volume)
+        for sound in self.sound_effects.values():
+            sound.set_volume(self.volume)
 
     def CreateBGM(self, file_name):
         pygame.mixer.music.load(file_name)

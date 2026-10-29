@@ -4,7 +4,6 @@ from actor import Actor
 class Laser(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
-        self.Init()
 
         self.sprite_name = "laser"
         self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/laser.png")
