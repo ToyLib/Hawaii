@@ -78,7 +78,7 @@ class Airplane(Actor):
                         self.shot_key_pressed = True
                         for laser in self.owner_stage.GetLasers():
                             if laser.GetDisp() == False:
-                                laser.Append(self.x+100, self.y)                   
+                                laser.Spawn(self.x+100, self.y)                   
                                 break
                         self.owner_app.GetMixer().PlaySound(self.pin_sound)
                 else :
@@ -124,7 +124,7 @@ class Airplane(Actor):
 
             for bubble in self.owner_stage.GetBubbles():
                 bubble.SetMessage("痛っ！")
-                bubble.Append(self.x+ 50,self.y)
+                bubble.Spawn(self.x+ 50,self.y)
                 break
 
 
@@ -136,7 +136,7 @@ class Airplane(Actor):
     def ItemGet(self):
         for bubble in self.owner_stage.GetBubbles():
             bubble.SetMessage("回復")
-            bubble.Append(self.x+ 50,self.y)
+            bubble.Spawn(self.x+ 50,self.y)
             break
 
         # 回復効果音

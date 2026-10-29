@@ -35,7 +35,7 @@ class Bubble(Actor):
             self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y )
             self.owner_app.GetRenderer().DrawTextAdjustCenter(self.font_name, self.msg, self.x, self.y, MSG_COLOR)
 
-    def Append(self, x, y):
+    def Spawn(self, x, y):
         self.disp = True
         self.x = x
         self.y = y

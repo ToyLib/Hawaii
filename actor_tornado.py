@@ -100,7 +100,7 @@ class Tornado(Actor):
 
   
     # 出現
-    def Append(self, x, y):
+    def Spawn(self, x, y):
         self.disp = True
         self.x = x
         self.y = y+80

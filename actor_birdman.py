@@ -46,7 +46,7 @@ class Birdman(Actor):
                 if(bullet.GetDisp() == False):
                     x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
                     y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
-                    bullet.Append(x, y)
+                    bullet.Spawn(x, y)
                     bullet.SetAngle(i*bullet_angle)
                     bullet.SetSpeed(5)
                     break
@@ -106,14 +106,12 @@ class Birdman(Actor):
                 self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name_dead, self.x, self.y)
 
 
-# 余裕あったらこのメソッドは見直す
-    def Append(self, disp, active):
-        self.disp = disp
-        self.active = active
-#        self.y = random.randint(100, 500)
-        self.x = self.owner_app.GetRenderer().GetScreenW()+50
+    # 画面から消す
+    def Despawn(self):
+        self.disp = False
+        self.active = False
 
-    def AppendLayout(self, pos_x, pos_y, pattern):
+    def SpawnFromLayout(self, pos_x, pos_y, pattern):
         self.disp = True
         self.active = True
         self.x = pos_x

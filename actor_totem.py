@@ -49,7 +49,7 @@ class TotemPole (Actor):
                 if(bullet.GetDisp() == False):
                     x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
                     y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
-                    bullet.Append(x, y)
+                    bullet.Spawn(x, y)
                     bullet.SetAngle(i*bullet_angle)
                     bullet.SetSpeed(5)
                     break
@@ -105,7 +105,7 @@ class TotemPole (Actor):
                 self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name_dead, self.x, self.y)
 
 
-    def AppendLayout(self, pos_x, pos_y, pattern):
+    def SpawnFromLayout(self, pos_x, pos_y, pattern):
         self.disp = True
         self.active = True
         self.x = pos_x

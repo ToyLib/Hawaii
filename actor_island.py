@@ -22,7 +22,7 @@ class Island(Actor):
         if(self.disp == True):
             self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y )
 
-    def Append(self, x, y):
+    def Spawn(self, x, y):
         self.disp = True
         self.x = 1500
         self.y = 600

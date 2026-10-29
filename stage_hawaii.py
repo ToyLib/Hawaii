@@ -275,9 +275,9 @@ class HawaiiStage(BaseStage):
             self.scene = SCENE.BOSS
             self.boss_flag = True
             self.journey = self.max_journey
-            self.harpy.Append(True, True)
+            self.harpy.Spawn()
             if self.island.GetDisp() == False:
-                self.island.Append(DESTINATION_X, DESTINATION_Y)
+                self.island.Spawn(DESTINATION_X, DESTINATION_Y)
 
             # ボスBGM開始する
             self.owner_app.GetMixer().CreateBGM(self.boss_bgm)
@@ -291,19 +291,19 @@ class HawaiiStage(BaseStage):
                 if self.layout[self.last_enemy].enemy_type == 0:
                     for bird in self.birds:
                         if bird.GetDisp() == False:
-                            bird.AppendLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
+                            bird.SpawnFromLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
                             break
                 # トーテム
                 elif self.layout[self.last_enemy].enemy_type == 1:
                     for totem in self.totems:
                         if totem.GetDisp() == False:
-                            totem.AppendLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
+                            totem.SpawnFromLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
                             break
                 # フライボード
                 elif self.layout[self.last_enemy].enemy_type == 2:
                     for flyboard in self.flyboards:
                         if flyboard.GetDisp() == False:
-                            flyboard.AppendLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
+                            flyboard.SpawnFromLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
                             break
                 # 最終行のチェック
                 self.last_enemy += 1
@@ -348,7 +348,7 @@ class HawaiiStage(BaseStage):
                             # 爆発表示                                                            
                             for fire in self.fires:
                                 if fire.GetDisp() == False:
-                                    fire.Append(laser.GetX(), laser.GetY())
+                                    fire.Spawn(laser.GetX(), laser.GetY())
                                     break
                             laser.SetDisp(False)
 
@@ -359,7 +359,7 @@ class HawaiiStage(BaseStage):
                         for fire in self.fires:
                             # 爆発表示                                
                             if fire.disp == False:
-                                fire.Append(totem.GetX(), totem.GetY())
+                                fire.Spawn(totem.GetX(), totem.GetY())
                                 break
                         #totem.SetActive(False)
 
@@ -425,7 +425,7 @@ class HawaiiStage(BaseStage):
                             for fire in self.fires:
                                 # 爆発表示                                
                                 if fire.disp == False:
-                                    fire.Append(laser.GetX(), laser.GetY())
+                                    fire.Spawn(laser.GetX(), laser.GetY())
                                     break
 
                 
@@ -444,7 +444,7 @@ class HawaiiStage(BaseStage):
                                 # 爆発表示    
                                 for fire in self.fires:
                                     if fire.disp == False:
-                                        fire.Append(feather.GetX(), feather.GetY())
+                                        fire.Spawn(feather.GetX(), feather.GetY())
                                         break
 
                                 self.life -= 5
@@ -472,7 +472,7 @@ class HawaiiStage(BaseStage):
                             for bubble in self.bubbles:
                                 if bubble.GetDisp() == False:
                                     bubble.SetMessage("グエっ")
-                                    bubble.Append(enemy.GetX(), enemy.GetY())
+                                    bubble.Spawn(enemy.GetX(), enemy.GetY())
                                     break
 
                 # 自機
@@ -486,7 +486,7 @@ class HawaiiStage(BaseStage):
                             for fire in self.fires:
                                 # 爆発表示                                
                                 if fire.disp == False:
-                                    fire.Append(enemy.GetX(), enemy.GetY())
+                                    fire.Spawn(enemy.GetX(), enemy.GetY())
                                     break
                             enemy.SetActive(False)
 
@@ -495,18 +495,18 @@ class HawaiiStage(BaseStage):
 
                             # コンボリセット
                             self.ResetCombo()
-                            enemy.Append(False, False)
+                            enemy.Despawn()
 
                             # 吹き出し
                             for bubble in self.bubbles:
                                 if bubble.GetDisp() == False:
                                     bubble.SetMessage("痛っ！")
-                                    bubble.Append(self.plane.GetX() + 50,self.plane.GetY())
+                                    bubble.Spawn(self.plane.GetX() + 50,self.plane.GetY())
                                     break
 
                 if(enemy.GetX() < -100):
                     # 通り過ぎたら消える
-                    enemy.Append(False, False)
+                    enemy.Despawn()
                     # コンボリセット
                     self.ResetCombo()
 

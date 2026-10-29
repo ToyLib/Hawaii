@@ -47,7 +47,7 @@ class Bullet(Actor):
         if(self.disp == True):
             self.owner_app.GetRenderer().DrawSpriteRectAdjustCenter(self.sprite_name, self.anim*14, 0, 14, 14, self.x, self.y )
 
-    def Append(self, x, y):
+    def Spawn(self, x, y):
         self.disp = True
         self.x = x
         self.y = y

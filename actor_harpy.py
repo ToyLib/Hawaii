@@ -97,7 +97,7 @@ class Harpy(Actor):
                     if(bullet.GetDisp() == False):
                         x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
                         y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
-                        bullet.Append(x, y)
+                        bullet.Spawn(x, y)
                         bullet.SetAngle(i*bullet_angle)
                         bullet.SetSpeed(5)
                         break
@@ -112,16 +112,16 @@ class Harpy(Actor):
 
         if self.behave_cnt == 10:
             val = 100
-            self.feathers[0].Append(self.x, self.y)
+            self.feathers[0].Spawn(self.x, self.y)
             self.feathers[0].SetTarget(self.x + 50, self.y - 100, val)
 
-            self.feathers[1].Append(self.x, self.y)
+            self.feathers[1].Spawn(self.x, self.y)
             self.feathers[1].SetTarget(self.x + 100, self.y - 150, val)
 
-            self.feathers[2].Append(self.x, self.y)
+            self.feathers[2].Spawn(self.x, self.y)
             self.feathers[2].SetTarget(self.x + 10, self.y + 100, val)
 
-            self.feathers[3].Append(self.x, self.y)
+            self.feathers[3].Spawn(self.x, self.y)
             self.feathers[3].SetTarget(self.x + 100, self.y + 150, val)
 
 
@@ -173,7 +173,7 @@ class Harpy(Actor):
                         if(bullet.GetDisp() == False):
                             x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
                             y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
-                            bullet.Append(x, y)
+                            bullet.Spawn(x, y)
                             bullet.SetAngle(i*bullet_angle)
                             bullet.SetSpeed(5)
                             break
@@ -190,7 +190,7 @@ class Harpy(Actor):
                     if(feather.GetDisp() == False):
                         x = self.x + math.cos(math.radians(i*feather_angle)) * 50
                         y = self.y + math.sin(math.radians(i*feather_angle)) * 50
-                        feather.Append(x, y)
+                        feather.Spawn(x, y)
                         dst_x = self.x + math.cos(math.radians(i*feather_angle)) * 200
                         dst_y = self.y + math.sin(math.radians(i*feather_angle)) * 200
                         feather.SetTarget(dst_x, dst_y, 60)
@@ -281,10 +281,11 @@ class Harpy(Actor):
 
 
 
-    def Append(self, disp, active):
+    # 出現
+    def Spawn(self):
         self.Init()
-        self.disp = disp
-        self.active = active
+        self.disp = True
+        self.active = True
         self.x = self.owner_app.GetRenderer().GetScreenW()
 
 
