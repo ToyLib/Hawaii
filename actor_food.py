@@ -1,5 +1,4 @@
 from actor import Actor
-import math
 
 class Food(Actor):
     def __init__(self, app, stage):

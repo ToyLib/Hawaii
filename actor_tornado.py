@@ -106,15 +106,6 @@ class Tornado(Actor):
         self.y = y+80
         self.behave_id = 0
 
-    def SetAngle(self, angle):
-        self.angle = angle
-    def SetSpeed(self, speed):
-        self.speed = speed
-
-    def SetOffset(self, distance, angle):
-        self.offset_distance = distance
-        self.offset_angle = angle
-
     # 振る舞いIDを変更（同時にカウンタもリセット）
     def SetBehaveID(self, behave_id):
         self.behave_id = behave_id

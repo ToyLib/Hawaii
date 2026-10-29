@@ -16,7 +16,6 @@ class Background(Actor):
         super().Init()
         self.disp = True
         self.bg_speed = 8
-        self.accel = 0
         self.bg_x = 0
 
         self.alpha = 0
@@ -41,7 +40,5 @@ class Background(Actor):
 
 
     # Getter/Setter
-    def GetBgSpeed(self):
-        return self.bg_speed
     def SetBGSpeed(self, speed):
         self.bg_speed = speed

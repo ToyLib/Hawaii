@@ -47,18 +47,14 @@ class BaseStage:
         # ライフの最大値
         self.max_life = 100
 
-        self.score_table = []
         self.combo_count = 0
 
         # 移動距離
         self.journey = 0
         self.max_journey = 1000
         # 距離情報
-        self.distance = 0
         self.max_distance = 1000
 
-        #カウンター
-        self.counter = 0
         # アクター
         self.actors = []
 
@@ -137,8 +133,6 @@ class BaseStage:
         return self.journey
     def GetMaxJourney(self):
         return self.max_journey
-    def GetDistance(self):
-        return self.distance
     def GetMaxDistance(self):
         return self.max_distance
     def GetBossLife(self):

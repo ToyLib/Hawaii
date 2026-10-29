@@ -4,7 +4,6 @@ import pygame
 
 
 WHITE = (255,255,255)
-GRAY = (128, 128, 128)
 
 class EndrollStage(BaseStage):
     def __init__(self, app, game_state):

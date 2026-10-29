@@ -4,9 +4,6 @@ SCREEN_W = 1280
 SCREEN_H = 720
 WINDOW_TITLE = "ハワイ航路"
 
-
-BLANK_COLOR = (255,255,255)
-
 # アセット管理とレンダリング処理をするクラス
 class Renderer:
     def __init__(self):
@@ -33,10 +30,6 @@ class Renderer:
     def GetScreenW(self):
         return self.screen_w
 
-
-    def FillBlankColor(self):
-        self.screen.fill(BLANK_COLOR)
-        pass
 
     # スプライトをロード
     def CreateSprite(self, name, file_name):

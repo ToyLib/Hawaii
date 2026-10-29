@@ -66,12 +66,10 @@ class HawaiiStage(BaseStage):
         self.life = 100
         self.max_combo = 0
 
-        self.score_table = [100, 200, 400, 800, 2000]
         self.combo_count = 0
         self.max_life = 100
         self.journey = 0
         self.max_journey = 4000
-        self.distance = 0
         self.max_distance = 6481
 
         self.wait_cnt = 0
@@ -327,15 +325,6 @@ class HawaiiStage(BaseStage):
         # デバッグ用
         self.Debug()
 
-    # 得点計算
-    def ComputeScore(self, x):
-        p = self.owner_app.GetRenderer().GetScreenW() / 5
-        r = int(x / p)
-        if r >= 5 :
-            r = 4
-        return self.score_table[r]
-    
-
     # 当たり判定
     def CollisionMidst(self):
 
@@ -538,8 +527,6 @@ class HawaiiStage(BaseStage):
         return self.tornados
     def GetBubbles(self):
         return self.bubbles
-    def GetPlane(self):
-        return self.plane
     def GetFoods(self):
         return self.foods
 

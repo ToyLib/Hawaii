@@ -1,7 +1,6 @@
 # 衝突判定用の関数
 
 import math
-from actor import Actor
 
 
 # Actor同士で判定

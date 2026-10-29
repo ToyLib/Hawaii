@@ -36,6 +36,5 @@ class Laser(Actor):
         self.disp = True
         self.x = x
         self.y = y
-        self.combcnt = 0
 
 

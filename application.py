@@ -11,13 +11,6 @@ import sys
 
 
 
-# 定数
-WHITE = (255,255,255)
-BLACK = (0, 0, 0)
-GRAY = (128, 128, 128)
-BLANK_COLOR = (0, 0, 64)
-
-
 # ステージ識別
 class STAGE_ID(Enum):
     TITLE   = 0
