@@ -25,7 +25,7 @@ class STAGE_ID(Enum):
     LUNA    = 2
     ENDROLL = 3
     CLEAR   = 4
-    FAILE   = 5
+    FAILED  = 5
 
  
 class Application:

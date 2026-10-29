@@ -1,18 +1,18 @@
 from stage_base import BaseStage
 
-from actor_flyingace    import FlyingAce
+from actor_birdman    import Birdman
 from actor_totem        import TotemPole
 from actor_flyboard     import FlyBoard
 from actor_tornado      import Tornado
 from actor_island       import Island
 from actor_fire         import Fire
-from actor_bobble       import Bobble
+from actor_bubble       import Bubble
 from actor_harpy        import Harpy
 from actor_bullet       import Bullet
-from actor_airplane     import AirPlane
+from actor_airplane     import Airplane
 from actor_food         import Food
 from actor_uielement    import UIElement
-from actor_background   import BackGround
+from actor_background   import Background
 from actor_laser        import Laser
 import collision as col
 
@@ -20,13 +20,13 @@ import pygame
 
 
 # 定数（このステージしか使わないので、Classに入れても良い）
-MAX_ENEMY   = 20
+MAX_BIRD   = 20
 MAX_TOTEM   = 4
 MAX_FLYBOARD = 6
 MAX_TORNADOS = 6
 MAX_FOOD     = 6
 MAX_FIRE    = 10
-MAX_BOBBLE  = 12
+MAX_BUBBLE  = 12
 MAX_BULLET  = 128
 MAX_LASER   = 2
 
@@ -45,7 +45,7 @@ class SCENE(Enum):
     MIDST   = 1
     BOSS    = 2
     CLEAR   = 3
-    FAILE   = 4
+    FAILED  = 4
     
 
 # ハワイのステージ
@@ -71,7 +71,7 @@ class HawaiiStage(BaseStage):
         self.distance = 0
         self.max_distance = 6481
 
-        self.waite = 0
+        self.wait_cnt = 0
 
         self.scene = SCENE.START
 
@@ -85,30 +85,30 @@ class HawaiiStage(BaseStage):
 
 
 
-    def LoadStageDate(self):
+    def LoadStageData(self):
         # Actorのインスタンス作成
         # アセットのロード
 
         # Actorを準備(順番注意)
 
 
-        self.bg         = BackGround(self.owner_app, self)
+        self.bg         = Background(self.owner_app, self)
         self.island     = Island(self.owner_app, self)
-        self.birds      = [ FlyingAce(self.owner_app, self) for i in range(MAX_ENEMY) ]
+        self.birds      = [ Birdman(self.owner_app, self) for i in range(MAX_BIRD) ]
         self.totems     = [ TotemPole(self.owner_app, self) for i in range(MAX_TOTEM) ]
         self.flyboards  = [ FlyBoard(self.owner_app, self) for i in range(MAX_FLYBOARD) ]
         
 
         self.harpy      = Harpy(self.owner_app, self)
         self.bullets    = [ Bullet(self.owner_app, self) for i in range(MAX_BULLET)]
-        self.plane      = AirPlane(self.owner_app, self)
+        self.plane      = Airplane(self.owner_app, self)
         self.fires      = [ Fire(self.owner_app, self) for i in range(MAX_FIRE) ]
         self.tornados   = [ Tornado(self.owner_app, self) for i in range(MAX_TORNADOS)]
 
         self.foods      = [ Food(self.owner_app, self) for i in range(MAX_FOOD)]
 
         self.lasers     = [ Laser(self.owner_app, self) for i in range(MAX_LASER) ]
-        self.bobbles    = [ Bobble(self.owner_app, self) for i in range(MAX_BOBBLE) ]
+        self.bubbles    = [ Bubble(self.owner_app, self) for i in range(MAX_BUBBLE) ]
         self.ui         = UIElement(self.owner_app, self)
 
         # ゲームオーバーの背景
@@ -127,7 +127,7 @@ class HawaiiStage(BaseStage):
         self.main_bgm   = "Asset/MusMus-BGM-121.mp3"
         self.clear_bgm  = "Asset/MusMus-BGM-139.mp3"
         self.boss_bgm   = "Asset/MusMus-BGM-122.mp3"
-        self.faile_bgm   = "Asset/MusMus-BGM-112.mp3"
+        self.failed_bgm   = "Asset/MusMus-BGM-112.mp3"
 
         pass
 
@@ -146,7 +146,7 @@ class HawaiiStage(BaseStage):
 
     # Actorの描画処理を呼ぶ
     def DrawStage(self):
-        if(self.scene != SCENE.FAILE):
+        if(self.scene != SCENE.FAILED):
             for actor in self.actors:
                 actor.Draw()
 
@@ -167,18 +167,18 @@ class HawaiiStage(BaseStage):
             self.CollisionBoss()
         if(self.scene == SCENE.CLEAR):
             self.SceneClear()
-        if(self.scene == SCENE.FAILE):
-            self.SceneFaile()
+        if(self.scene == SCENE.FAILED):
+            self.SceneFailed()
 
 
 
     # スタート中
     def SceneStart(self):
-        self.waite += 1
-        waitecount = 60
-        if self.waite > waitecount:
+        self.wait_cnt += 1
+        wait_frames = 60
+        if self.wait_cnt > wait_frames:
             self.scene = SCENE.MIDST
-            self.waite = 0
+            self.wait_cnt = 0
             self.plane.SetOperable(True)
 
             # BGM開始する
@@ -199,7 +199,7 @@ class HawaiiStage(BaseStage):
 
             self.owner_app.GetMixer().StopBGM()
         
-            # 画面上の羽尾を消す
+            # 画面上の羽を消す
             for feather in self.harpy.GetFeathers():
                 if feather.GetDisp() == True:
                     feather.SetDisp(False)
@@ -230,8 +230,8 @@ class HawaiiStage(BaseStage):
 
 
         if self.plane.GetY() > 900 :
-            self.scene = SCENE.FAILE
-            self.owner_app.GetMixer().CreateBGM(self.faile_bgm)
+            self.scene = SCENE.FAILED
+            self.owner_app.GetMixer().CreateBGM(self.failed_bgm)
             self.owner_app.GetMixer().PlayBGM()
         pass
 
@@ -241,17 +241,17 @@ class HawaiiStage(BaseStage):
         # 加速度で制御するようにするべきか
         self.bg.SetBGSpeed(0)
 
-        self.waite += 1
-        if self.waite > 300:
+        self.wait_cnt += 1
+        if self.wait_cnt > 300:
             self.Transition()
  
         self.island.Update()
         self.plane.MoveToTarget()
 
 
-    def SceneFaile(self):
+    def SceneFailed(self):
         self.owner_app.GetRenderer().DrawSprite("game_over", 0, 0)
-        self.owner_app.GetRenderer().DrawText("onryo", "ハワイに辿り着けませんした。。", 100, 200, WHITE)
+        self.owner_app.GetRenderer().DrawText("onryo", "ハワイに辿り着けませんでした。。", 100, 200, WHITE)
         self.owner_app.GetRenderer().DrawText("onryo", "皆が遊んでる間、東京でお仕事頑張ってください。。", 100, 350, WHITE)
         
         key = pygame.key.get_pressed()
@@ -285,22 +285,22 @@ class HawaiiStage(BaseStage):
         if self.last_enemy < len(self.layout):
             while self.layout[self.last_enemy].frame == self.journey:
                 # 鳥人
-                if self.layout[self.last_enemy].type == 0:
+                if self.layout[self.last_enemy].enemy_type == 0:
                     for bird in self.birds:
                         if bird.GetDisp() == False:
-                            bird.AppendLyaout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
+                            bird.AppendLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
                             break
                 # トーテム
-                elif self.layout[self.last_enemy].type == 1:
+                elif self.layout[self.last_enemy].enemy_type == 1:
                     for totem in self.totems:
                         if totem.GetDisp() == False:
-                            totem.AppendLyaout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
+                            totem.AppendLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
                             break
                 # フライボード
-                elif self.layout[self.last_enemy].type == 2:
+                elif self.layout[self.last_enemy].enemy_type == 2:
                     for flyboard in self.flyboards:
                         if flyboard.GetDisp() == False:
-                            flyboard.AppendLyaout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
+                            flyboard.AppendLayout(self.layout[self.last_enemy].pos_x, self.layout[self.last_enemy].pos_y, self.layout[self.last_enemy].pattern)
                             break
                 # 最終行のチェック
                 self.last_enemy += 1
@@ -315,8 +315,8 @@ class HawaiiStage(BaseStage):
 
         # 画面外でゲームオーバーに遷移する
         if self.plane.GetY() > 900 :
-            self.scene = SCENE.FAILE
-            self.owner_app.GetMixer().CreateBGM(self.faile_bgm)
+            self.scene = SCENE.FAILED
+            self.owner_app.GetMixer().CreateBGM(self.failed_bgm)
             self.owner_app.GetMixer().PlayBGM()
 
         # デバッグ用
@@ -334,8 +334,8 @@ class HawaiiStage(BaseStage):
     # 当たり判定
     def CollisionMidst(self):
 
-        self.CheckCllision(self.birds)
-        self.CheckCllision(self.flyboards)
+        self.CheckCollision(self.birds)
+        self.CheckCollision(self.flyboards)
         
 
         # トーテムポール
@@ -344,7 +344,7 @@ class HawaiiStage(BaseStage):
                 # レーザー
                 for laser in self.lasers:
                     if laser.GetDisp() == True:
-                        if col.CollisionSqure(totem, laser) == True:
+                        if col.CollisionSquare(totem, laser) == True:
 
                             if totem.Collision() == True:
                                 self.score += 1000
@@ -418,9 +418,9 @@ class HawaiiStage(BaseStage):
             for laser in self.lasers:
                 if laser.GetDisp() == True:
 
-                    if col.CollisionSqure(self.harpy, laser) == True:
+                    if col.CollisionSquare(self.harpy, laser) == True:
 
-                        if self.harpy.Collison() == True:
+                        if self.harpy.Collision() == True:
                             self.boss_life = self.harpy.GetLife()
                         else:
                             # レーザーとボスが当たった時
@@ -438,12 +438,12 @@ class HawaiiStage(BaseStage):
                 # 羽
                 for feather in self.harpy.GetFeathers():
                     if feather.GetDisp() == True:
-                        if col.CollisionSqure(feather, laser) == True:
+                        if col.CollisionSquare(feather, laser) == True:
                             # レーザーと羽が当たった時
                             laser.SetDisp(False)
                             
 
-                        if col.CollisionSqure(feather, self.plane) == True:
+                        if col.CollisionSquare(feather, self.plane) == True:
                             # 自機と羽が当たった時
                              if self.plane.Collision() == True:
 
@@ -459,14 +459,14 @@ class HawaiiStage(BaseStage):
 
 
     # 衝突チェック
-    def CheckCllision(self, enemys):
+    def CheckCollision(self, enemies):
         # 敵
-        for enemy in enemys:
+        for enemy in enemies:
             if enemy.GetActive() == True:
                 # レーザー
                 for laser in self.lasers:
                     if laser.GetDisp() == True:
-                        if col.CollisionSqure(enemy, laser) == True:
+                        if col.CollisionSquare(enemy, laser) == True:
                             # 敵とレーザーが当たっている時
                             # コンボ加算
                             if enemy.Collision() == True:
@@ -475,10 +475,10 @@ class HawaiiStage(BaseStage):
                                 self.score += score
                                 
                             # 吹き出し
-                            for bobble in self.bobbles:
-                                if bobble.GetDisp() == False:
-                                    bobble.SetMessage("グエっ")
-                                    bobble.Append(enemy.GetX(), enemy.GetY())
+                            for bubble in self.bubbles:
+                                if bubble.GetDisp() == False:
+                                    bubble.SetMessage("グエっ")
+                                    bubble.Append(enemy.GetX(), enemy.GetY())
                                     break
 
                 # 自機
@@ -504,10 +504,10 @@ class HawaiiStage(BaseStage):
                             enemy.Append(False, False)
 
                             # 吹き出し
-                            for bobble in self.bobbles:
-                                if bobble.GetDisp() == False:
-                                    bobble.SetMessage("痛っ！")
-                                    bobble.Append(self.plane.GetX() + 50,self. plane.GetY())
+                            for bubble in self.bubbles:
+                                if bubble.GetDisp() == False:
+                                    bubble.SetMessage("痛っ！")
+                                    bubble.Append(self.plane.GetX() + 50,self.plane.GetY())
                                     break
 
                 if(enemy.GetX() < -100):
@@ -527,8 +527,8 @@ class HawaiiStage(BaseStage):
         return self.lasers
     def GetTornados(self):
         return self.tornados
-    def GetBobble(self):
-        return self.bobbles
+    def GetBubbles(self):
+        return self.bubbles
     def GetPlane(self):
         return self.plane
     def GetFoods(self):

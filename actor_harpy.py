@@ -12,13 +12,13 @@ class Harpy(Actor):
         self.cnt = 0
         self.angle = 0
 
-        self.spritename = "harpy"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/harpy.png")
-        self.spritename_dead = "harpy_dead"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename_dead, "Asset/harpy_dead.png")
+        self.sprite_name = "harpy"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/harpy.png")
+        self.sprite_name_dead = "harpy_dead"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name_dead, "Asset/harpy_dead.png")
  
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.w = self.w / 2
         self.h = self.h / 2
         self.radius = self.w / 2 # 微調整
@@ -36,13 +36,13 @@ class Harpy(Actor):
         self.behave_cnt = 0
         self.behave_id = 0
 
-        self.damage_sound = "hyn_sound"
+        self.damage_sound = "hyun_sound"
         self.owner_app.GetMixer().CreateSoundEffects(self.damage_sound, "Asset/hyun.mp3") 
 
         self.life = 100       
 
 
-    def __del__(delf):
+    def __del__(self):
         pass
 
     def Init(self):
@@ -90,15 +90,15 @@ class Harpy(Actor):
 
         # 弾幕を出す
         if self.behave_cnt % 10 == 0:
-            bullet_ang = 20
+            bullet_angle = 20
 
-            for i in range(0, int(360/bullet_ang)):
+            for i in range(0, int(360/bullet_angle)):
                 for bullet in  self.owner_stage.GetBullets():
                     if(bullet.GetDisp() == False):
-                        x = self.x + math.cos(math.radians(i*bullet_ang)) * 50
-                        y = self.y + math.sin(math.radians(i*bullet_ang)) * 50
+                        x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
+                        y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
                         bullet.Append(x, y)
-                        bullet.SetAngle(i*bullet_ang)
+                        bullet.SetAngle(i*bullet_angle)
                         bullet.SetSpeed(5)
                         break
 
@@ -166,15 +166,15 @@ class Harpy(Actor):
         # 弾幕を出す
         if(self.behave_cnt > cnt_offset):
             if self.behave_cnt % 15 == 0:
-                bullet_ang = 20
+                bullet_angle = 20
 
-                for i in range(0, int(360/bullet_ang)):
+                for i in range(0, int(360/bullet_angle)):
                     for bullet in  self.owner_stage.GetBullets():
                         if(bullet.GetDisp() == False):
-                            x = self.x + math.cos(math.radians(i*bullet_ang)) * 50
-                            y = self.y + math.sin(math.radians(i*bullet_ang)) * 50
+                            x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
+                            y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
                             bullet.Append(x, y)
-                            bullet.SetAngle(i*bullet_ang)
+                            bullet.SetAngle(i*bullet_angle)
                             bullet.SetSpeed(5)
                             break
 
@@ -183,19 +183,19 @@ class Harpy(Actor):
         self.behave_cnt += 1
         cnt_offset = 10
 
-        feather_ang = 45
+        feather_angle = 45
         if self.behave_cnt == cnt_offset:
             self.feathers
             for i in range(0, 8):
                 for feather in self.feathers:
                     if(feather.GetDisp() == False):
-                        x = self.x + math.cos(math.radians(i*feather_ang)) * 50
-                        y = self.y + math.sin(math.radians(i*feather_ang)) * 50
+                        x = self.x + math.cos(math.radians(i*feather_angle)) * 50
+                        y = self.y + math.sin(math.radians(i*feather_angle)) * 50
                         feather.Append(x, y)
-                        dist_x = self.x + math.cos(math.radians(i*feather_ang)) * 200
-                        dist_y = self.y + math.sin(math.radians(i*feather_ang)) * 200
-                        feather.SetTarget(dist_x, dist_y, 60)
-                        feather.SetOffset(200, i*feather_ang)
+                        dst_x = self.x + math.cos(math.radians(i*feather_angle)) * 200
+                        dst_y = self.y + math.sin(math.radians(i*feather_angle)) * 200
+                        feather.SetTarget(dst_x, dst_y, 60)
+                        feather.SetOffset(200, i*feather_angle)
                         break
 
         if self.behave_cnt == cnt_offset + 150:
@@ -276,9 +276,9 @@ class Harpy(Actor):
     def Draw(self):
         if(self.disp == True):    
             if(self.active == True):
-                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
             else:
-                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename_dead, self.x, self.y)
+                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name_dead, self.x, self.y)
 
 
 
@@ -294,7 +294,7 @@ class Harpy(Actor):
     #def GetBullets(self):
     #    return self.bullets
 
-    def Collison(self):
+    def Collision(self):
         self.life -= 1.5
         if self.life > 0:
             return False

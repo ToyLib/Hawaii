@@ -14,9 +14,9 @@ class EndrollStage(BaseStage):
         self.Release()
         pass
 
-    def LoadStageDate(self):
+    def LoadStageData(self):
 
-        # タイトル画面の背景
+        # エンドロール画面の背景
         self.image_party = "party"
         self.owner_app.GetRenderer().CreateSprite("party", "Asset/party.png")
         self.font_msg1 = "msg1"

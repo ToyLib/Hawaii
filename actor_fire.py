@@ -5,9 +5,9 @@ class Fire(Actor):
         super().__init__(app, stage)
         self.Init()
 
-        self.spritename = "fire"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/bomb.png")
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.sprite_name = "fire"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/bomb.png")
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
 
 
     def __del__(self):
@@ -30,7 +30,7 @@ class Fire(Actor):
                 
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSpriteRectAdjustCenter(self.spritename, self.anim*80, 0, 80, 80, self.x, self.y )
+            self.owner_app.GetRenderer().DrawSpriteRectAdjustCenter(self.sprite_name, self.anim*80, 0, 80, 80, self.x, self.y )
 
     def Append(self, x, y):
         self.disp = True

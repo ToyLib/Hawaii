@@ -2,16 +2,16 @@ from actor import Actor
 
 BG_WIDTH = 2048
 
-class BackGround(Actor):
+class Background(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
         self.Init()
 
         # ゲーム中背景
-        self.spritename = "blue_sky"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/blue_sky.jpg")
-        self.spritename_night = "night_sky"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename_night, "Asset/night_sky.jpg")
+        self.sprite_name = "blue_sky"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/blue_sky.jpg")
+        self.sprite_name_night = "night_sky"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name_night, "Asset/night_sky.jpg")
 
     def Init(self):
         super().Init()
@@ -31,14 +31,14 @@ class BackGround(Actor):
                 
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSprite(self.spritename , self.bg_x - BG_WIDTH, 0)
-            self.owner_app.GetRenderer().DrawSprite(self.spritename , self.bg_x, 0)
+            self.owner_app.GetRenderer().DrawSprite(self.sprite_name , self.bg_x - BG_WIDTH, 0)
+            self.owner_app.GetRenderer().DrawSprite(self.sprite_name , self.bg_x, 0)
 
             if(self.alpha < 255):
                 self.alpha += 0.05
-            self.owner_app.GetRenderer().SetAlpha(self.spritename_night, self.alpha)
-            self.owner_app.GetRenderer().DrawSprite(self.spritename_night , self.bg_x - BG_WIDTH, 0)
-            self.owner_app.GetRenderer().DrawSprite(self.spritename_night , self.bg_x, 0)
+            self.owner_app.GetRenderer().SetAlpha(self.sprite_name_night, self.alpha)
+            self.owner_app.GetRenderer().DrawSprite(self.sprite_name_night , self.bg_x - BG_WIDTH, 0)
+            self.owner_app.GetRenderer().DrawSprite(self.sprite_name_night , self.bg_x, 0)
 
 
     # Getter/Setter

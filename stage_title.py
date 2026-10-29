@@ -30,7 +30,7 @@ class TitleStage(BaseStage):
     def InitStage(self):
         pass
 
-    def LoadStageDate(self):
+    def LoadStageData(self):
 
         # タイトル画面の背景
         self.sprite_bg = "title_hawaii"

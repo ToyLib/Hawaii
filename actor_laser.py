@@ -6,11 +6,11 @@ class Laser(Actor):
         super().__init__(app, stage)
         self.Init()
 
-        self.spritename = "laser"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/laser.png")
+        self.sprite_name = "laser"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/laser.png")
 
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.w = self.w / 2
         self.h = self.h / 2
         self.radius = self.w / 2 # このアクターでは使わない
@@ -29,7 +29,7 @@ class Laser(Actor):
             
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
 
   
     # レーザー出現

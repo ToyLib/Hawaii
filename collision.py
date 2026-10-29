@@ -5,7 +5,7 @@ from actor import Actor
 
 
 # Actor同士で判定
-def CollisionSqure(a, b):
+def CollisionSquare(a, b):
     ## 中心点を調整
     x_a = a.GetX() - a.GetW()/2
     y_a = a.GetY() - a.GetH()/2

@@ -5,8 +5,8 @@ class Island(Actor):
         super().__init__(app, stage)
         self.Init()
         
-        self.spritename = "island"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/vacation_island.png")
+        self.sprite_name = "island"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/vacation_island.png")
 
     def Init(self):
         super().Init()        
@@ -21,7 +21,7 @@ class Island(Actor):
                 
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y )
+            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y )
 
     def Append(self, x, y):
         self.disp = True

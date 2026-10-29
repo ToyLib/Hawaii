@@ -7,10 +7,10 @@ class Bullet(Actor):
         super().__init__(app, stage)
         self.Init()
 
-        self.spritename = "bullet"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/bullet.png")
-        self.owner_app.GetRenderer().SetColorkey(self.spritename, (0,0,0))
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.sprite_name = "bullet"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/bullet.png")
+        self.owner_app.GetRenderer().SetColorkey(self.sprite_name, (0,0,0))
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.radius = self.h
 
         self.angle = 0
@@ -41,12 +41,12 @@ class Bullet(Actor):
         self.x += math.cos(math.radians(self.angle)) * self.speed
         self.y += math.sin(math.radians(self.angle)) * self.speed
 
-        if self. x < 0 or self.x > self.owner_app.GetRenderer().GetScreenW() or self.y < 0 or self.y > self.owner_app.GetRenderer().GetScreenH():
+        if self.x < 0 or self.x > self.owner_app.GetRenderer().GetScreenW() or self.y < 0 or self.y > self.owner_app.GetRenderer().GetScreenH():
             self.disp = False
                 
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSpriteRectAdjustCenter(self.spritename, self.anim*14, 0, 14, 14, self.x, self.y )
+            self.owner_app.GetRenderer().DrawSpriteRectAdjustCenter(self.sprite_name, self.anim*14, 0, 14, 14, self.x, self.y )
 
     def Append(self, x, y):
         self.disp = True

@@ -13,8 +13,8 @@ class Renderer:
 
         self.screen_h = SCREEN_H
         self.screen_w = SCREEN_W
-        self.WindowTitle = WINDOW_TITLE
-        pygame.display.set_caption(self.WindowTitle)
+        self.window_title = WINDOW_TITLE
+        pygame.display.set_caption(self.window_title)
 
         self.screen = pygame.display.set_mode(( self.screen_w, self.screen_h)) 
         self.clock = pygame.time.Clock()
@@ -25,7 +25,7 @@ class Renderer:
     def __del__(self):
         pass
 
-    # Getter/Stter
+    # Getter/Setter
     def GetScreen(self):
         return self.screen    
     def GetScreenH(self):
@@ -71,20 +71,20 @@ class Renderer:
             pass
 
     # 切り抜いて描画
-    def DrawSpriteRect(self, name, src_x, src_y, src_w, src_h, dist_x, dist_y):
+    def DrawSpriteRect(self, name, src_x, src_y, src_w, src_h, dst_x, dst_y):
         if(name in self.images):
             rect = pygame.Rect(src_x, src_y, src_w, src_h)
             partial_image = self.images[name].subsurface(rect)
-            self.screen.blit(partial_image, [dist_x, dist_y])
+            self.screen.blit(partial_image, [dst_x, dst_y])
     
     # 切り抜いて描画（センター補正）
-    def DrawSpriteRectAdjustCenter(self, name, src_x, src_y, src_w, src_h, dist_x, dist_y):
+    def DrawSpriteRectAdjustCenter(self, name, src_x, src_y, src_w, src_h, dst_x, dst_y):
         if(name in self.images):
             rect = pygame.Rect(src_x, src_y, src_w, src_h)
             partial_image = self.images[name].subsurface(rect)
-            dist_x -= partial_image.get_width() / 2
-            dist_y -= partial_image.get_height() / 2
-            self.screen.blit(partial_image, [dist_x, dist_y])
+            dst_x -= partial_image.get_width() / 2
+            dst_y -= partial_image.get_height() / 2
+            self.screen.blit(partial_image, [dst_x, dst_y])
 
     # フリップ
     def UpdateDisplay(self):
@@ -116,7 +116,7 @@ class Renderer:
             text = self.fonts[name].render(text_string, True, color) 
             self.screen.blit(text, (x,y))
 
-    # アフファ値の変更
+    # アルファ値の変更
     def SetAlpha(self, name, alpha):
         if name in self.images:     
             self.images[name].set_alpha(alpha)

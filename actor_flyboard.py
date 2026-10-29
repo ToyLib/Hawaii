@@ -6,19 +6,19 @@ class FlyBoard(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
         self.cnt = 0
-        self.ang = 0
+        self.angle = 0
         self.accel  = 0
         self.speed = 0
 
-        self.spritename = "fly_board"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/fly_board.png")
+        self.sprite_name = "fly_board"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/fly_board.png")
         
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.radius = self.h / 2 # 微調整
 
-        self.spritename_dead = "flyboad_dead"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename_dead, "Asset/fly_board_dead.png")
+        self.sprite_name_dead = "flyboard_dead"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name_dead, "Asset/fly_board_dead.png")
 
         self.pattern = 0
 
@@ -35,22 +35,22 @@ class FlyBoard(Actor):
         self.owner_app.GetMixer().CreateSoundEffects(self.damage_sound, "Asset/gua.mp3")
 
 
-    def __del__(delf):
+    def __del__(self):
         pass
 
     def Init(self):
         super().Init()
     
     # 弾幕を撃つ
-    def ShotBullet(self):
-        bullet_ang = 45
-        for i in range(0, int(360/bullet_ang)):
+    def ShootBullet(self):
+        bullet_angle = 45
+        for i in range(0, int(360/bullet_angle)):
             for bullet in  self.owner_stage.GetBullets():
                 if(bullet.GetDisp() == False):
-                    x = self.x + math.cos(math.radians(i*bullet_ang)) * 50
-                    y = self.y + math.sin(math.radians(i*bullet_ang)) * 50
+                    x = self.x + math.cos(math.radians(i*bullet_angle)) * 50
+                    y = self.y + math.sin(math.radians(i*bullet_angle)) * 50
                     bullet.Append(x, y)
-                    bullet.SetAngle(i*bullet_ang)
+                    bullet.SetAngle(i*bullet_angle)
                     bullet.SetSpeed(5)
                     break
         
@@ -84,9 +84,9 @@ class FlyBoard(Actor):
     def Draw(self):
         if(self.disp == True):    
             if(self.active == True):
-                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
             else:
-                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename_dead, self.x, self.y)
+                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name_dead, self.x, self.y)
 
 
 # 余裕あったらこのメソッドは見直す
@@ -96,7 +96,7 @@ class FlyBoard(Actor):
 #        self.y = random.randint(100, 500)
         self.x = self.owner_app.GetRenderer().GetScreenW()+50
 
-    def AppendLyaout(self, pos_x, pos_y, pattern):
+    def AppendLayout(self, pos_x, pos_y, pattern):
         self.disp = True
         self.active = True
         self.x = pos_x

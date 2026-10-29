@@ -3,20 +3,20 @@ from actor import Actor
 
 import pygame
 
-class AirPlane(Actor):
+class Airplane(Actor):
     def __init__(self, app, stage):
         super().__init__(app, stage)
         self.Init()
 
-        self.spritename = "plane"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/airplane.png")
+        self.sprite_name = "plane"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/airplane.png")
 
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.radius = self.h/2/2# 微調整
 
-        self.spritename_dead = "plane_dead"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename_dead, "Asset/plane_dead.png")
+        self.sprite_name_dead = "plane_dead"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name_dead, "Asset/plane_dead.png")
 
 
         self.pin_sound = "pin_sound"
@@ -30,7 +30,7 @@ class AirPlane(Actor):
         self.owner_app.GetMixer().CreateSoundEffects(self.heal_sound, "Asset/heal.mp3")       
 
 
-    def __del__(delf):
+    def __del__(self):
         pass
 
     def Init(self):
@@ -92,15 +92,15 @@ class AirPlane(Actor):
     def Draw(self):
         if(self.disp == True):
             if(self.active == True):
-                #self.owner_app.GetRenderer().DrawSprite(self.spritename, self.x, self.y)
+                #self.owner_app.GetRenderer().DrawSprite(self.sprite_name, self.x, self.y)
                 if self.collision_cnt > 60:
-                    self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+                    self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
                 else:
                     if self.collision_cnt %2 == 0:
-                        self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+                        self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
 
             else:
-                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename_dead, self.x, self.y)
+                self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name_dead, self.x, self.y)
 
     # ターゲット座標に向かって動かす
     def MoveTo(self, x, y, val):
@@ -123,9 +123,9 @@ class AirPlane(Actor):
             # ダメージ効果音
             self.owner_app.GetMixer().PlaySound(self.damage_sound)
 
-            for bobble in self.owner_stage.GetBobble():
-                bobble.SetMessage("痛っ！")
-                bobble.Append(self.x+ 50,self.y)
+            for bubble in self.owner_stage.GetBubbles():
+                bubble.SetMessage("痛っ！")
+                bubble.Append(self.x+ 50,self.y)
                 break
 
 
@@ -135,9 +135,9 @@ class AirPlane(Actor):
 
     # アイテムを取った時
     def ItemGet(self):
-        for bobble in self.owner_stage.GetBobble():
-            bobble.SetMessage("回復")
-            bobble.Append(self.x+ 50,self.y)
+        for bubble in self.owner_stage.GetBubbles():
+            bubble.SetMessage("回復")
+            bubble.Append(self.x+ 50,self.y)
             break
 
         # 回復効果音

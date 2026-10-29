@@ -10,10 +10,10 @@ class Feather(Actor):
         self.move_cnt = 0
         self.move_val = 0
 
-        self.spritename = "feather"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/feather_yellow.png")
+        self.sprite_name = "feather"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/feather_yellow.png")
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.w = self.w / 2 / 2
         self.h = self.h / 2
         self.radius = self.w / 2 # （このアクターでは使わない）
@@ -39,7 +39,7 @@ class Feather(Actor):
     def Init(self):
         super().Init()
         self.offset_distance = 0
-        self.offiset_angle = 0
+        self.offset_angle = 0
 
         self.target_x = 0
         self.target_y = 0
@@ -71,9 +71,9 @@ class Feather(Actor):
         self.behave_cnt += 1
 
 #        ang = self.behave_cnt * 10
-        self.offiset_angle += 1
-        self.x = self.parent_actor.GetX() + math.cos(math.radians(self.offiset_angle)) * self.offset_distance
-        self.y = self.parent_actor.GetY() + math.sin(math.radians(self.offiset_angle)) * self.offset_distance
+        self.offset_angle += 1
+        self.x = self.parent_actor.GetX() + math.cos(math.radians(self.offset_angle)) * self.offset_distance
+        self.y = self.parent_actor.GetY() + math.sin(math.radians(self.offset_angle)) * self.offset_distance
 
         pass
 
@@ -89,11 +89,11 @@ class Feather(Actor):
 
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
 
 
   
-    # レーザー出現
+    # 羽の出現
     def Append(self, x, y):
         self.disp = True
         self.x = x
@@ -106,7 +106,7 @@ class Feather(Actor):
 
     def SetOffset(self, distance, angle):
         self.offset_distance = distance
-        self.offiset_angle = angle
+        self.offset_angle = angle
 
     # 振る舞いIDを変更（同時にカウンタもリセット）
     def SetBehaveID(self, behave_id):

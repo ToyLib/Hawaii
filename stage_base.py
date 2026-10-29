@@ -22,14 +22,14 @@ class GameState:
 
 # レイアウトデータ格納
 class LayoutData:
-    def __init__(self, frame, pos_x, pos_y, type, pattern):
+    def __init__(self, frame, pos_x, pos_y, enemy_type, pattern):
         # 出現フレーム
         self.frame = int(frame)
-        # 出現1
+        # 出現座標
         self.pos_x = int(pos_x)
         self.pos_y = int(pos_y)
         # 出現敵のタイプ
-        self.type = int(type)
+        self.enemy_type = int(enemy_type)
         self.pattern = int(pattern)
  
 
@@ -68,7 +68,7 @@ class BaseStage:
         self.last_enemy = 0
 
 
-        self.LoadStageDate()
+        self.LoadStageData()
 
         # ボスのライフ
         self.boss_life  = 100
@@ -82,7 +82,7 @@ class BaseStage:
         # 変数の初期化
         pass
 
-    def LoadStageDate(self):
+    def LoadStageData(self):
         # Actorのインスタンス作成
         # アセットのロード
         pass

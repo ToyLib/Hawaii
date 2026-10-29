@@ -10,15 +10,15 @@ class Tornado(Actor):
         self.move_cnt = 0
         self.move_val = 0
 
-        self.spritename = "tornado"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/tornado.png")
+        self.sprite_name = "tornado"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/tornado.png")
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.w = self.w / 2
         self.h = self.h / 2
         self.radius = self.w
 
-        self.ang = 0
+        self.angle = 0
 
 
         # 行動パターンをリスト化
@@ -60,9 +60,9 @@ class Tornado(Actor):
     def Behavior_1(self):
         self.behave_cnt += 1
 
-        self.ang += 0.5
-        self.x -= math.cos(self.ang) * 10
-        self.y -= math.sin(self.ang) * 10
+        self.angle += 0.5
+        self.x -= math.cos(self.angle) * 10
+        self.y -= math.sin(self.angle) * 10
 
         if self.behave_cnt > 60:
             self.behave_id = 2
@@ -75,9 +75,9 @@ class Tornado(Actor):
         self.behave_cnt += 1
 #        self.x -= 10
 
-        self.ang += 0.1
-        self.x -= math.cos(self.ang) * 20
-        self.y -= math.sin(self.ang) * 20
+        self.angle += 0.1
+        self.x -= math.cos(self.angle) * 20
+        self.y -= math.sin(self.angle) * 20
 
         self.x -= 5
 
@@ -96,7 +96,7 @@ class Tornado(Actor):
 
     def Draw(self):
         if(self.disp == True):
-            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
 
 
   
@@ -114,7 +114,7 @@ class Tornado(Actor):
 
     def SetOffset(self, distance, angle):
         self.offset_distance = distance
-        self.offiset_angle = angle
+        self.offset_angle = angle
 
     # 振る舞いIDを変更（同時にカウンタもリセット）
     def SetBehaveID(self, behave_id):

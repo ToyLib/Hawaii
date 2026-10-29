@@ -12,15 +12,15 @@ class Food(Actor):
 
         self.blink = False
 
-        self.spritename = "item"
-        self.owner_app.GetRenderer().CreateSprite(self.spritename, "Asset/food_locomoco_don.png")
+        self.sprite_name = "item"
+        self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/food_locomoco_don.png")
         # スプライトから当たり判定用のサイズ取得
-        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.spritename)
+        self.w, self.h = self.owner_app.GetRenderer().GetSpriteSize(self.sprite_name)
         self.w = self.w / 2
         self.h = self.h / 2
         self.radius = self.w
 
-        self.ang = 0
+        self.angle = 0
 
 
         # 行動パターンをリスト化
@@ -78,7 +78,7 @@ class Food(Actor):
             if self.blink == True:
                 if self.cnt % 2 == 0:
                     return
-            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.spritename, self.x, self.y)
+            self.owner_app.GetRenderer().DrawSpriteAdjustCenter(self.sprite_name, self.x, self.y)
 
 
   

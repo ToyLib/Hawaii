@@ -3,12 +3,12 @@ from actor import Actor
 MSG_COLOR = (255,80,80)
 
 # メッセージ用吹き出し
-class Bobble(Actor):
+class Bubble(Actor):
     def __init__(self, app, stage) :
         super().__init__(app, stage)
 
 
-        self.sprite_name = "bobble"
+        self.sprite_name = "bubble"
         self.owner_app.GetRenderer().CreateSprite(self.sprite_name, "Asset/speech_bubble.png")
         self.font_name = "score_message"
         self.font_size = 20
@@ -26,7 +26,7 @@ class Bobble(Actor):
             return
 
         self.cnt += 1
-        self.y -= self.spped
+        self.y -= self.speed
         if(self.cnt > 30):
             self.disp = False
                 
@@ -40,7 +40,7 @@ class Bobble(Actor):
         self.x = x
         self.y = y
         self.cnt = 0
-        self.spped = 5
+        self.speed = 5
 
     def SetMessage(self, msg):
         self.msg = msg
